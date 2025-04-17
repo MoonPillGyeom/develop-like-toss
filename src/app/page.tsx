@@ -1,5 +1,6 @@
 "use client";
 
+import Button from "@/components/common/Button";
 import Input, { PasswordInput } from "@/components/common/Input";
 
 export default function Home() {
@@ -50,6 +51,7 @@ export default function Home() {
         onChange={handleClick}
         className="focus:border-blue-20"
       />
+      <Button type="button">가입하기</Button>
     </>
   );
 }
