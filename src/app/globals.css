@@ -4,8 +4,13 @@
 :root {
   --background: #1c1c22;
   /* --foreground: #171717; */
+  --gradient-blue: linear-gradient(
+    to right,
+    var(--color-blue-20),
+    var(--color-indigo-20)
+  );
 }
-
+/* from-blue-20 to-indigo-20 */
 @theme inline {
   --color-black-20: #2e2e3a;
   --color-black-40: #17171c;
@@ -39,6 +44,7 @@
   --color-red-40: #ff0000;
   --color-red-60: #d6173a;
   --color-red-50: oklch(0.971 0.013 17.38);
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);

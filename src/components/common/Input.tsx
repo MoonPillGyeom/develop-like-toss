@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { ComponentProps, useState } from "react";
 
-interface InputProps {
+interface InputProps extends ComponentProps<"input"> {
   id: string;
   label?: string;
   type?: string;
