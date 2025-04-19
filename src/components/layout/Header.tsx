@@ -1,6 +1,6 @@
 "use client";
 
-import Input from "@/components/common/Input";
+import Input from "@/components/common/Input/Input";
 import Link from "next/link";
 
 function Header() {

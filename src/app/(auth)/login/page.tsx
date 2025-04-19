@@ -1,6 +1,6 @@
 "use client";
-import Button from "@/components/common/Button";
-import Input, { PasswordInput } from "@/components/common/Input";
+import Button from "@/components/common/Button/Button";
+import Input, { PasswordInput } from "@/components/common/Input/Input";
 
 function Login() {
   const handleChange = () => {
