@@ -2,7 +2,6 @@
 
 import Button from "@/components/common/Button";
 import Input, { PasswordInput } from "@/components/common/Input";
-import Header from "@/components/layout/Header";
 
 export default function Home() {
   const handleClick = () => {
@@ -10,7 +9,6 @@ export default function Home() {
   };
   return (
     <>
-      <Header />
       {/* 기본 */}
       <Input
         id="email"

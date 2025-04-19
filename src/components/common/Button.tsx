@@ -12,7 +12,7 @@ function Button({
   type = "button",
   variant = "primary",
   className,
-  disabled = true,
+  disabled = false,
   children,
   ...props
 }: ButtonProps) {

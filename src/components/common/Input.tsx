@@ -8,6 +8,7 @@ interface InputProps extends ComponentProps<"input"> {
   value?: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   error?: string;
+  helperText?: string;
   className?: string;
 }
 
@@ -22,9 +23,17 @@ function Input({
   value,
   onChange,
   error,
+  helperText,
   className,
   ...props
 }: InputProps) {
+  let message: React.ReactNode = null;
+
+  if (error) {
+    message = <p className="text-red-40">{error}</p>;
+  } else if (helperText) {
+    message = <p className="text-gray-40">{helperText}</p>;
+  }
   return (
     <div className="flex flex-col gap-2.5">
       {label && (
@@ -32,16 +41,18 @@ function Input({
           {label}
         </label>
       )}
-      <input
-        id={id}
-        type={type}
-        placeholder={placeholder}
-        value={value}
-        onChange={onChange}
-        className={`text-white text-md w-full px-6 py-5 border border-gray-40 focus:outline-none rounded-md shadow-sm bg-black-20 ${className}`}
-        {...props}
-      />
-      {error && <p className="text-red-40">{error}</p>}
+      <div className="flex flex-col gap-1.5">
+        <input
+          id={id}
+          type={type}
+          placeholder={placeholder}
+          value={value}
+          onChange={onChange}
+          className={`text-white text-md w-full px-6 py-5 border border-gray-40 focus:outline-none rounded-md shadow-sm bg-black-20 ${className}`}
+          {...props}
+        />
+        {message}
+      </div>
     </div>
   );
 }
@@ -53,6 +64,7 @@ export function PasswordInput({
   value,
   onChange,
   error,
+  helperText,
   className,
   ...props
 }: InputProps) {
@@ -62,6 +74,14 @@ export function PasswordInput({
     setIsPasswordVisible(!isPasswordVisible);
   };
 
+  let message: React.ReactNode = null;
+
+  if (error) {
+    message = <p className="text-red-40">{error}</p>;
+  } else if (helperText) {
+    message = <p className="text-gray-40">{helperText}</p>;
+  }
+
   return (
     <div className="flex flex-col gap-2.5">
       {label && (
@@ -69,37 +89,35 @@ export function PasswordInput({
           {label}
         </label>
       )}
-      <div className="relative">
-        <input
-          id={id}
-          type={isPasswordVisible ? "text" : "password"}
-          placeholder={placeholder}
-          value={value}
-          onChange={onChange}
-          className={`text-white text-md w-full px-6 py-5 border border-gray-40 focus:outline-none rounded-md shadow-sm bg-black-20 ${className}`}
-          {...props}
-        />
-        <button
-          type="button"
-          onClick={togglePasswordVisibility}
-          className="absolute top-1/2 right-6 transform -translate-y-1/2 text-white"
-        >
-          {isPasswordVisible ? (
-            <span role="img" aria-label="hide">
-              🙈
-            </span>
-          ) : (
-            <span role="img" aria-label="show">
-              👁️
-            </span>
-          )}
-        </button>
+      <div className="flex flex-col gap-1.5">
+        <div className="relative">
+          <input
+            id={id}
+            type={isPasswordVisible ? "text" : "password"}
+            placeholder={placeholder}
+            value={value}
+            onChange={onChange}
+            className={`text-white text-md w-full px-6 py-5 border border-gray-40 focus:outline-none rounded-md shadow-sm bg-black-20 ${className}`}
+            {...props}
+          />
+          <button
+            type="button"
+            onClick={togglePasswordVisibility}
+            className="absolute top-1/2 right-6 transform -translate-y-1/2 text-white"
+          >
+            {isPasswordVisible ? (
+              <span role="img" aria-label="hide">
+                🙈
+              </span>
+            ) : (
+              <span role="img" aria-label="show">
+                👁️
+              </span>
+            )}
+          </button>
+        </div>
+        {message}
       </div>
-      {error ? (
-        <p className="text-red-40">{error}</p>
-      ) : (
-        <p className="text-gray-40">최소 8자 이상</p>
-      )}
     </div>
   );
 }
