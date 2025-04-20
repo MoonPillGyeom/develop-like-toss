@@ -13,7 +13,7 @@ export default function Card({ content, isFlipped, onClick }: CardProps) {
     <div
       onClick={onClick}
       className={clsx(
-        "w-20 h-28 sm:w-24 sm:h-32 cursor-pointer perspective",
+        "w-20 h-28 sm:w-40 sm:h-52 cursor-pointer perspective",
         "transition-transform duration-500"
       )}
     >
@@ -30,7 +30,7 @@ export default function Card({ content, isFlipped, onClick }: CardProps) {
         </div>
 
         {/* 뒷면 */}
-        <div className="absolute w-full h-full bg-blue-500 text-white rounded-lg shadow-md flex items-center justify-center backface-hidden transform rotate-y-180">
+        <div className="absolute w-full h-full bg-blue-500 text-white rounded-lg shadow-md flex items-center justify-center backface-hidden transform rotate-y-180 font-bold text-xl">
           {content}
         </div>
       </div>

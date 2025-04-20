@@ -3,7 +3,7 @@
 import Input from "@/components/common/Input/Input";
 import Link from "next/link";
 
-function Header() {
+export default function Header() {
   return (
     <>
       <header className="flex text-white px-12 justify-between items-center py-6">
@@ -23,4 +23,3 @@ function Header() {
     </>
   );
 }
-export default Header;

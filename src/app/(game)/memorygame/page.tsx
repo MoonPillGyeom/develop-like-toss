@@ -9,8 +9,22 @@ function MemoryGame() {
     setIsBoolean(!isBoolean);
   };
   return (
-    <div>
-      test
+    <div className="grid grid-cols-5 gap-10">
+      <Card content="사과" isFlipped={isBoolean} onClick={handleClick} />
+      <Card content="사과" isFlipped={isBoolean} onClick={handleClick} />
+      <Card content="사과" isFlipped={isBoolean} onClick={handleClick} />
+      <Card content="사과" isFlipped={isBoolean} onClick={handleClick} />
+      <Card content="사과" isFlipped={isBoolean} onClick={handleClick} />
+      <Card content="사과" isFlipped={isBoolean} onClick={handleClick} />
+      <Card content="사과" isFlipped={isBoolean} onClick={handleClick} />
+      <Card content="사과" isFlipped={isBoolean} onClick={handleClick} />
+      <Card content="사과" isFlipped={isBoolean} onClick={handleClick} />
+      <Card content="사과" isFlipped={isBoolean} onClick={handleClick} />
+      <Card content="사과" isFlipped={isBoolean} onClick={handleClick} />
+      <Card content="사과" isFlipped={isBoolean} onClick={handleClick} />
+      <Card content="사과" isFlipped={isBoolean} onClick={handleClick} />
+      <Card content="사과" isFlipped={isBoolean} onClick={handleClick} />
+      <Card content="사과" isFlipped={isBoolean} onClick={handleClick} />
       <Card content="사과" isFlipped={isBoolean} onClick={handleClick} />
     </div>
   );
