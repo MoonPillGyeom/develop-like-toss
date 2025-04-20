@@ -9,7 +9,22 @@
     var(--color-blue-20),
     var(--color-indigo-20)
   );
+  .perspective {
+    perspective: 1000px;
+  }
+  .backface-hidden {
+    backface-visibility: hidden;
+  }
+  .rotate-y-180 {
+    transform: rotateY(180deg);
+  }
+  .transform-style-preserve-3d {
+    transform-style: preserve-3d;
+  }
 }
+
+/* 커스텀 유틸리티 */
+
 /* from-blue-20 to-indigo-20 */
 @theme inline {
   --color-black-20: #2e2e3a;
