@@ -25,9 +25,6 @@ function CategorySideBar({ onClick, menus }: CategorySideBarProps) {
             </li>
           ))}
           <li className="px-2.5 py-2 text-gray-20 hover:text-white hover:cursor-pointer hover:border hover:border-gray-20 rounded-md">
-            랭킹
-          </li>
-          <li className="px-2.5 py-2 text-gray-20 hover:text-white hover:cursor-pointer hover:border hover:border-gray-20 rounded-md">
             설정
           </li>
         </ul>
