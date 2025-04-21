@@ -1,14 +1,14 @@
-import { useEffect, useState } from "react";
-type Item = { id: number; title: string };
-function CategorySideBar() {
-  const [menus, setMenus] = useState<Array<Item>>([]);
+interface Menu {
+  id: string | number;
+  title: string;
+}
 
-  useEffect(() => {
-    fetch("/api/sideBar")
-      .then((res) => res.json())
-      .then(setMenus);
-  }, []);
-  console.log(menus);
+interface CategorySideBarProps {
+  onClick: (title: string) => void;
+  menus: Menu[];
+}
+
+function CategorySideBar({ onClick, menus }: CategorySideBarProps) {
   return (
     <>
       {/* <aside className="w-full"> */}
@@ -19,10 +19,17 @@ function CategorySideBar() {
             <li
               key={i}
               className="px-2.5 py-2 text-gray-20 hover:text-white hover:cursor-pointer hover:border hover:border-gray-20 rounded-md"
+              onClick={() => onClick(item.title)}
             >
               {item.title}
             </li>
           ))}
+          <li className="px-2.5 py-2 text-gray-20 hover:text-white hover:cursor-pointer hover:border hover:border-gray-20 rounded-md">
+            랭킹
+          </li>
+          <li className="px-2.5 py-2 text-gray-20 hover:text-white hover:cursor-pointer hover:border hover:border-gray-20 rounded-md">
+            설정
+          </li>
         </ul>
       </aside>
     </>

@@ -12,10 +12,7 @@ export default function Card({ content, isFlipped, onClick }: CardProps) {
   return (
     <div
       onClick={onClick}
-      className={clsx(
-        "w-20 h-28 sm:w-40 sm:h-52 cursor-pointer perspective",
-        "transition-transform duration-500"
-      )}
+      className="w-20 h-28 sm:w-40 sm:h-52 cursor-pointer perspective transition-transform duration-500"
     >
       <div
         className={clsx(
