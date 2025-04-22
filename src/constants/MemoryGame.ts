@@ -1,4 +1,4 @@
-export const content = [
+export const MEMORYGAME_CONTENT = [
   "사과",
   "바나나",
   "포도",

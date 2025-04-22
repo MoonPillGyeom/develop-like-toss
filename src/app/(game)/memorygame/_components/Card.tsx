@@ -6,13 +6,22 @@ interface CardProps {
   content: string;
   isFlipped: boolean;
   onClick: () => void;
+  isMatched: boolean;
 }
 
-export default function Card({ content, isFlipped, onClick }: CardProps) {
+export default function Card({
+  content,
+  isFlipped,
+  onClick,
+  isMatched,
+}: CardProps) {
   return (
     <div
       onClick={onClick}
-      className="w-20 h-28 sm:w-40 sm:h-52 cursor-pointer perspective transition-transform duration-500"
+      className={clsx(
+        "w-20 h-28 sm:w-40 sm:h-52 cursor-pointer perspective transition-transform duration-500",
+        isMatched && "opacity-0 pointer-events-none"
+      )}
     >
       <div
         className={clsx(

@@ -1,9 +1,9 @@
 import { CardType } from "@/app/types/cardType";
-import { content } from "@/constants/MemoryGame";
+import { MEMORYGAME_CONTENT } from "@/constants/MemoryGame";
 import shuffle from "./shuffle";
 
 export function initializeGame(): CardType[] {
-  const duplicated = [...content, ...content];
+  const duplicated = [...MEMORYGAME_CONTENT, ...MEMORYGAME_CONTENT];
   const withIds = duplicated.map((item) => ({
     id: crypto.randomUUID(),
     content: item,
