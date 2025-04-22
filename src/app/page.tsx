@@ -1,53 +1,39 @@
 "use client";
 
+import useEscapeKey from "@/app/hooks/useEscapeKey";
+import useGameData from "@/app/hooks/useGameData";
 import { gameData } from "@/app/types/gamedata";
 import Card from "@/components/common/Card/Card";
 import CategorySideBar from "@/components/common/SideBar/CategorySideBar";
 import RankingSideBar from "@/components/common/SideBar/RankingSideBar";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { MouseEvent, useState } from "react";
 
 export default function Home() {
-  const [data, setData] = useState<Array<gameData>>([]);
   const [selectedGame, setSelectedGame] = useState<gameData | null>(null);
   const [isSidebarVisible, setIsSidebarVisible] = useState(false); // 사이드바 상태
   const router = useRouter();
-  console.log(selectedGame);
-  useEffect(() => {
-    fetch("/api/sideBar")
-      .then((res) => res.json())
-      .then(setData);
-  }, []);
+  const data = useGameData();
 
   const handleNavigate = (title: string) => {
     const game = data.find((item) => item.title === title);
     console.log(game);
     if (game) {
-      router.push(`/game/${game.id}`);
+      router.push(`/${game.slug}`);
     }
   };
 
-  const handleCardClick = (game: gameData) => {
-    setSelectedGame(game); // 선택된 게임 데이터 저장
+  const handleCardClick = (e: MouseEvent<HTMLDivElement>, game: gameData) => {
+    e.stopPropagation();
+    setSelectedGame(game);
     setIsSidebarVisible(true); // 사이드바 나타나게 함
   };
 
   const handleCloseSidebar = () => {
-    setIsSidebarVisible(false); // 사이드바 숨기기
+    setIsSidebarVisible(false);
   };
 
-  // ESC 누르면 사이드바 닫히게 하는 effect
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setIsSidebarVisible(false); // ESC 누르면 사이드바 닫기
-      }
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, []);
+  useEscapeKey(handleCloseSidebar); // ESC 키 훅 사용
 
   return (
     <>
@@ -58,7 +44,12 @@ export default function Home() {
             onClick={handleNavigate}
           />
           {data.map((item, i) => (
-            <Card data={item} key={i} onClick={handleCardClick} />
+            <Card
+              data={item}
+              key={i}
+              onClick={handleCardClick}
+              handleNavigate={() => handleNavigate(item.title)}
+            />
           ))}
         </div>
         {/* 나중에 game데이터로 변경 후 해당 게임 랭킹 산출 */}

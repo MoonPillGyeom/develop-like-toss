@@ -4,6 +4,7 @@ const data = [
   {
     id: 1,
     title: "기억력 테스트",
+    slug: "memorygame",
     name: "김철수",
     rank: "1위",
     score: "980점",
@@ -11,6 +12,7 @@ const data = [
   {
     id: 2,
     title: "반응속도 테스트",
+    slug: "reactionSpeedGame",
     name: "이영희",
     rank: "1위",
     score: "950점",
@@ -18,6 +20,7 @@ const data = [
   {
     id: 3,
     title: "균형 맞추기 게임",
+    slug: "balanceGame",
     name: "박민수",
     rank: "1위",
     score: "920점",
@@ -25,6 +28,7 @@ const data = [
   {
     id: 4,
     title: "기억력 테스트",
+    slug: "balanceGame",
     name: "최지우",
     rank: "2위",
     score: "910점",

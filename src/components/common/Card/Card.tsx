@@ -2,17 +2,23 @@ import Image from "next/image";
 import test from "@/../public/test.svg";
 import test2 from "@/../public/test2.svg";
 import { gameData } from "@/app/types/gamedata";
+import { MouseEvent } from "react";
 
 function Card({
   data,
   onClick,
+  handleNavigate,
 }: {
   data: gameData;
-  onClick: (game: gameData) => void;
+  onClick: (e: MouseEvent<HTMLDivElement>, game: gameData) => void;
+  handleNavigate: () => void;
 }) {
   return (
     <>
-      <div className="w-80 rounded-md overflow-hidden bg-black-60 shadow-md">
+      <div
+        className="w-80 rounded-md overflow-hidden bg-black-60 shadow-md"
+        onClick={handleNavigate}
+      >
         <div className="relative w-full h-72">
           <Image src={test} alt="test" fill className="object-cover" />
         </div>
@@ -20,7 +26,7 @@ function Card({
           <p className="text-lg font-semibold">{data.title}</p>
           <div
             className="flex justify-between items-center"
-            onClick={() => onClick(data)}
+            onClick={(e) => onClick(e, data)}
           >
             <p className="text-sm text-gray-500">최고 점수: {data.score}</p>
             <span className="text-yellow-500">★ 4.5</span>
