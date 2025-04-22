@@ -1,31 +1,30 @@
 "use client";
 
 import Card from "@/app/(game)/memorygame/_components/Card";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { CardType } from "@/app/types/cardType";
+import { initializeGame } from "@/app/(game)/memorygame/lib/initGame";
+import { useFlippedCards } from "@/app/(game)/memorygame/lib/useFlip";
 
 function MemoryGame() {
-  const [isBoolean, setIsBoolean] = useState(false);
-  const handleClick = () => {
-    setIsBoolean(!isBoolean);
-  };
+  const [shuffledCards, setShuffledCards] = useState<CardType[]>([]);
+  const { flippedCardIds, flipCard } = useFlippedCards(shuffledCards);
+  console.log(flippedCardIds);
+
+  useEffect(() => {
+    setShuffledCards(initializeGame());
+  }, []);
+
   return (
     <div className="grid grid-cols-5 gap-10">
-      <Card content="사과" isFlipped={isBoolean} onClick={handleClick} />
-      <Card content="사과" isFlipped={isBoolean} onClick={handleClick} />
-      <Card content="사과" isFlipped={isBoolean} onClick={handleClick} />
-      <Card content="사과" isFlipped={isBoolean} onClick={handleClick} />
-      <Card content="사과" isFlipped={isBoolean} onClick={handleClick} />
-      <Card content="사과" isFlipped={isBoolean} onClick={handleClick} />
-      <Card content="사과" isFlipped={isBoolean} onClick={handleClick} />
-      <Card content="사과" isFlipped={isBoolean} onClick={handleClick} />
-      <Card content="사과" isFlipped={isBoolean} onClick={handleClick} />
-      <Card content="사과" isFlipped={isBoolean} onClick={handleClick} />
-      <Card content="사과" isFlipped={isBoolean} onClick={handleClick} />
-      <Card content="사과" isFlipped={isBoolean} onClick={handleClick} />
-      <Card content="사과" isFlipped={isBoolean} onClick={handleClick} />
-      <Card content="사과" isFlipped={isBoolean} onClick={handleClick} />
-      <Card content="사과" isFlipped={isBoolean} onClick={handleClick} />
-      <Card content="사과" isFlipped={isBoolean} onClick={handleClick} />
+      {shuffledCards.map(({ id, content }) => (
+        <Card
+          key={id}
+          content={content}
+          isFlipped={flippedCardIds.includes(id)}
+          onClick={() => flipCard(id)}
+        />
+      ))}
     </div>
   );
 }
