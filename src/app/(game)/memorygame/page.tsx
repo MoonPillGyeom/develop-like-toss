@@ -6,6 +6,7 @@ import { CardType } from "@/app/types/cardType";
 import { initializeGame } from "@/app/(game)/memorygame/_lib/initGame";
 import { useFlippedCards } from "@/app/(game)/memorygame/_lib/useFlip";
 import { useMatchedCards } from "@/app/(game)/memorygame/_lib/useMatchedCards";
+import StartCountdownWrapper from "@/components/common/StartWrapper/StartWrapper";
 
 function MemoryGame() {
   const [counter, setCounter] = useState<number>(Number);
@@ -24,20 +25,22 @@ function MemoryGame() {
   }, []);
 
   return (
-    <div className="flex flex-col gap-6 items-center">
-      <h1 className="text-blue-40 font-bold text-2xl">SCORE : {counter}</h1>
-      <div className="grid grid-cols-5 gap-10">
-        {shuffledCards.map(({ id, content }) => (
-          <Card
-            key={id}
-            content={content}
-            isFlipped={flippedCardIds.includes(id)}
-            isMatched={matchedCardIds.includes(id)}
-            onClick={() => flipCard(id)}
-          />
-        ))}
+    <StartCountdownWrapper gameName="기억력 테스트">
+      <div className="flex flex-col gap-6 items-center">
+        <h1 className="text-blue-40 font-bold text-2xl">SCORE : {counter}</h1>
+        <div className="grid grid-cols-5 gap-10">
+          {shuffledCards.map(({ id, content }) => (
+            <Card
+              key={id}
+              content={content}
+              isFlipped={flippedCardIds.includes(id)}
+              isMatched={matchedCardIds.includes(id)}
+              onClick={() => flipCard(id)}
+            />
+          ))}
+        </div>
       </div>
-    </div>
+    </StartCountdownWrapper>
   );
 }
 export default MemoryGame;

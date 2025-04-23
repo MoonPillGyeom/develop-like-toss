@@ -32,7 +32,7 @@ export default function StartWrapper({
     return (
       <div className="flex justify-center mt-4">
         <Button className="px-3 py-2" onClick={() => setStage("countdown")}>
-          {gameName} 게임 시작하기
+          {gameName} 시작하기
         </Button>
       </div>
     );

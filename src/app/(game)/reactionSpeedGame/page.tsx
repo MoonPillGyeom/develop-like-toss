@@ -5,7 +5,7 @@ import ReactionGameContent from "@/app/(game)/reactionSpeedGame/_components/Game
 
 export default function ReactionSpeadGame() {
   return (
-    <StartCountdownWrapper gameName={"반응속도"}>
+    <StartCountdownWrapper gameName={"반응속도 테스트"}>
       <ReactionGameContent />
     </StartCountdownWrapper>
   );
