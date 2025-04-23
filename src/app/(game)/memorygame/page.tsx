@@ -3,7 +3,7 @@
 import Card from "@/app/(game)/memorygame/_components/Card";
 import { useEffect, useState } from "react";
 import { CardType } from "@/app/types/cardType";
-import initGame from "@/app/(game)/memorygame/_lib/initGame";
+import { initGame } from "@/app/(game)/memorygame/_lib/initGame";
 import { useFlippedCards } from "@/app/(game)/memorygame/_lib/useFlip";
 import { useMatchedCards } from "@/app/(game)/memorygame/_lib/useMatchedCards";
 import StartCountdownWrapper from "@/components/common/GameStartWrapper/GameStartWrapper";

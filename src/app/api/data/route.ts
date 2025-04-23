@@ -19,8 +19,8 @@ const data = [
   },
   {
     id: 3,
-    title: "균형 맞추기 게임",
-    slug: "balanceGame",
+    title: "낱말 맞추기 게임",
+    slug: "wordMatchGame",
     name: "박민수",
     rank: "1위",
     score: "920점",
@@ -42,7 +42,7 @@ const data = [
   },
   {
     id: 6,
-    title: "균형 맞추기 게임",
+    title: "낱말 맞추기 게임",
     name: "오세훈",
     rank: "2위",
     score: "870점",

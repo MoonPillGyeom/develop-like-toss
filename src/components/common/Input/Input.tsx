@@ -4,7 +4,7 @@ interface InputProps extends ComponentProps<"input"> {
   id: string;
   label?: string;
   type?: string;
-  placeholder: string;
+  placeholder?: string;
   value?: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   error?: string;
