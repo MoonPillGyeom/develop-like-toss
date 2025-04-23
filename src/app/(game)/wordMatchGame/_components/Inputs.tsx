@@ -8,7 +8,7 @@ interface InputProps {
 export default function Inputs({ onChange }: InputProps) {
   return (
     // <div className="flex w-28">
-    <div className="flex w-[120px]">
+    <div className="flex w-[125px]">
       <Input id="word" onChange={onChange} />
       <Input id="word" onChange={onChange} />
     </div>

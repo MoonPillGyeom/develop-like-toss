@@ -2,7 +2,6 @@
 
 import Inputs from "@/app/(game)/wordMatchGame/_components/Inputs";
 import Button from "@/components/common/Button/Button";
-import Input from "@/components/common/Input/Input";
 import { ChangeEvent, useState } from "react";
 export default function WordMatchGame() {
   const [word, setWord] = useState<string>("");
