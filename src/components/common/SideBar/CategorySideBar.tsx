@@ -11,7 +11,6 @@ interface CategorySideBarProps {
 function CategorySideBar({ onClick, menus }: CategorySideBarProps) {
   return (
     <>
-      {/* <aside className="w-full"> */}
       <aside className="w-[220px]">
         <p>카테고리</p>
         <ul>

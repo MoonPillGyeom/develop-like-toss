@@ -1,13 +1,14 @@
+import { RandomDelay } from "@/app/(game)/reactionSpeedGame/_lib/RandomDelay";
 import { useEffect, useState } from "react";
 
 const TOTAL_TIMER = 12000;
 const MAX_ATTEMPTS = 4;
-const MIN_DELAY = 1000;
 const MAX_DELAY = 4000;
+const MIN_DELAY = 1000;
 const READY_DURATION = 1000;
 const INIT_GAME_START_DELAY = 2000;
 
-export function useReactionGame() {
+export const useReactionGame = () => {
   const [isBlueScreen, setIsBlueScreen] = useState(false);
   const [blueScreenStartTime, setBlueScreenStartTime] = useState<number | null>(
     null
@@ -19,29 +20,27 @@ export function useReactionGame() {
     const timeouts: NodeJS.Timeout[] = [];
     const start = performance.now();
 
-    const scheduleNextReady = (count: number) => {
+    const scheduleNextRound = (count: number) => {
       if (count >= MAX_ATTEMPTS || performance.now() - start > TOTAL_TIMER)
         return;
 
-      const delay = Math.random() * (MAX_DELAY - MIN_DELAY) + MIN_DELAY;
+      const delay = RandomDelay(MAX_DELAY, MIN_DELAY);
 
-      const timeout = setTimeout(() => {
+      const blueScreenTriggerTimer = setTimeout(() => {
         setIsBlueScreen(true);
 
         setBlueScreenStartTime(performance.now());
 
         setTimeout(() => setIsBlueScreen(false), READY_DURATION);
 
-        scheduleNextReady(count + 1);
+        scheduleNextRound(count + 1);
       }, delay);
 
-      timeouts.push(timeout);
-      console.log("추가된 timeout:", timeout);
-      console.log("현재까지 timeouts:", timeouts);
+      timeouts.push(blueScreenTriggerTimer);
     };
 
     const firsetGameStart = setTimeout(() => {
-      scheduleNextReady(0);
+      scheduleNextRound(0);
     }, INIT_GAME_START_DELAY);
     timeouts.push(firsetGameStart);
 
@@ -87,4 +86,4 @@ export function useReactionGame() {
     averageTime,
     handleClick,
   };
-}
+};

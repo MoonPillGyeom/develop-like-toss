@@ -8,7 +8,7 @@ interface StartWrapperProps {
   children: ReactNode;
 }
 
-export default function StartWrapper({
+export default function GameStartWrapper({
   gameName,
   children,
 }: StartWrapperProps) {

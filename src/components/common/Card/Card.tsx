@@ -1,6 +1,5 @@
 import Image from "next/image";
 import test from "@/../public/test.svg";
-import test2 from "@/../public/test2.svg";
 import { gameData } from "@/app/types/gamedata";
 import { MouseEvent } from "react";
 

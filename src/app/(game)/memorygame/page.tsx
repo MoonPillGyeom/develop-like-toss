@@ -3,10 +3,10 @@
 import Card from "@/app/(game)/memorygame/_components/Card";
 import { useEffect, useState } from "react";
 import { CardType } from "@/app/types/cardType";
-import { initializeGame } from "@/app/(game)/memorygame/_lib/initGame";
+import initGame from "@/app/(game)/memorygame/_lib/initGame";
 import { useFlippedCards } from "@/app/(game)/memorygame/_lib/useFlip";
 import { useMatchedCards } from "@/app/(game)/memorygame/_lib/useMatchedCards";
-import StartCountdownWrapper from "@/components/common/StartWrapper/StartWrapper";
+import StartCountdownWrapper from "@/components/common/GameStartWrapper/GameStartWrapper";
 
 function MemoryGame() {
   const [counter, setCounter] = useState<number>(Number);
@@ -21,7 +21,7 @@ function MemoryGame() {
   );
 
   useEffect(() => {
-    setShuffledCards(initializeGame());
+    setShuffledCards(initGame());
   }, []);
 
   return (

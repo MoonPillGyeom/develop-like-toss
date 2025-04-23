@@ -17,7 +17,6 @@ export default function Home() {
 
   const handleNavigate = (title: string) => {
     const game = data.find((item) => item.title === title);
-    console.log(game);
     if (game) {
       router.push(`/${game.slug}`);
     }

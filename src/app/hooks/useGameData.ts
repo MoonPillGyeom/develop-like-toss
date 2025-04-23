@@ -5,7 +5,7 @@ export default function useGameData() {
   const [data, setData] = useState<gameData[]>([]);
 
   useEffect(() => {
-    fetch("/api/sideBar")
+    fetch("/api/data")
       .then((res) => res.json())
       .then(setData);
   }, []);
