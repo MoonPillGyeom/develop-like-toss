@@ -1,16 +1,19 @@
 let keyDown: Record<string, boolean> = {};
 
 // 내 우주선을 조작하는 함수입니다.
-export const SpaceControllers = () => {
-  const handleKeyboardListener = (e: KeyboardEvent) => {
+export const SpaceShipControllers = () => {
+  const handleSpaceShipPostion = (e: KeyboardEvent) => {
     keyDown[e.key] = true;
   };
 
-  const handleKeyboardDelete = (e: KeyboardEvent) => {
+  const handleSpaceShipStop = (e: KeyboardEvent) => {
     delete keyDown[e.key];
   };
 
-  const handleSpaceUpdate = (spaceFighterX: number, spaceFighterY: number) => {
+  const handleSpaceShipUpdate = (
+    spaceFighterX: number,
+    spaceFighterY: number
+  ) => {
     let X = spaceFighterX;
     let Y = spaceFighterY;
     if ("ArrowRight" in keyDown && spaceFighterX !== 850) {
@@ -21,5 +24,9 @@ export const SpaceControllers = () => {
     }
     return { X, Y };
   };
-  return { handleKeyboardListener, handleKeyboardDelete, handleSpaceUpdate };
+  return {
+    handleSpaceShipPostion,
+    handleSpaceShipStop,
+    handleSpaceShipUpdate,
+  };
 };

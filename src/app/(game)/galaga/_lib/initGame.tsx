@@ -1,4 +1,4 @@
-import { SpaceControllers } from "@/app/(game)/galaga/_lib/spaceControllers";
+import { SpaceShipControllers } from "@/app/(game)/galaga/_lib/spaceShipControllers";
 import { LoadImage } from "@/app/(game)/galaga/_lib/loadImage";
 import { bulletControllers } from "@/app/(game)/galaga/_lib/bulletControllers";
 import { Bullet } from "@/app/(game)/galaga/_lib/bullet";
@@ -8,32 +8,34 @@ export const initGame = async (
 ): Promise<() => void> => {
   const ctx = canvas.getContext("2d");
   if (!ctx) throw new Error("2D not context");
-  const { handleKeyboardListener, handleKeyboardDelete, handleSpaceUpdate } =
-    SpaceControllers();
+
   const bullets: Bullet[] = [];
-
-  const getFighterPosition = () => ({ x: spaceFighterX, y: spaceFighterY });
-
-  const { handleKeyboardListener: testFuck, handleKeyboardDelete: testFuck2 } =
-    bulletControllers(bullets, getFighterPosition);
-
-  window.addEventListener("keydown", handleKeyboardListener);
-  window.addEventListener("keyup", handleKeyboardDelete);
-  window.addEventListener("keydown", testFuck);
-  window.addEventListener("keyup", testFuck2);
-
-  const images = await LoadImage();
-
+  console.log(bullets);
   // 우주선 값
   const SPACEFIGHTER_SIZE = 50;
   let spaceFighterX = canvas.width / 2;
   let spaceFighterY = canvas.height - SPACEFIGHTER_SIZE;
 
-  const bullet = new Bullet(0, 0);
   let animationFrameId: number;
 
+  const { handleSpaceShipPostion, handleSpaceShipStop, handleSpaceShipUpdate } =
+    SpaceShipControllers();
+
+  // 아 바꿨더니 안 움직임..... 나중에 수정해야함
+  const { handleBulletShot, handleBulletStop } = bulletControllers(bullets, {
+    spaceFighterX,
+    spaceFighterY,
+  });
+
+  window.addEventListener("keydown", handleSpaceShipPostion);
+  window.addEventListener("keyup", handleSpaceShipStop);
+  window.addEventListener("keydown", handleBulletShot);
+  window.addEventListener("keyup", handleBulletStop);
+
+  const images = await LoadImage();
+
   const update = () => {
-    const { X, Y } = handleSpaceUpdate(spaceFighterX, spaceFighterY);
+    const { X, Y } = handleSpaceShipUpdate(spaceFighterX, spaceFighterY);
     spaceFighterX = X;
     spaceFighterY = Y;
   };
@@ -69,8 +71,9 @@ export const initGame = async (
 
   return () => {
     cancelAnimationFrame(animationFrameId);
-    window.removeEventListener("keydown", testFuck);
-    window.removeEventListener("keydown", handleKeyboardListener);
-    window.removeEventListener("keyup", handleKeyboardDelete);
+    window.removeEventListener("keydown", handleBulletShot);
+    window.removeEventListener("keydown", handleSpaceShipPostion);
+    window.removeEventListener("keyup", handleSpaceShipStop);
+    window.removeEventListener("keyup", handleBulletStop);
   };
 };
