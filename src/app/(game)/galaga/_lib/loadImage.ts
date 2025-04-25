@@ -11,7 +11,7 @@ export const LoadImage = async () => {
 
   const spaceFighterImage = await load("/space-fighter-30.png");
   const bulletImage = await load("/bullet.png");
-  const enemyPlaneWhite = await load("/enemy-plane-white.png");
+  const enemyPlaneSkeleton = await load("/skeleton.png");
 
-  return { bulletImage, spaceFighterImage, enemyPlaneWhite };
+  return { bulletImage, spaceFighterImage, enemyPlaneSkeleton };
 };

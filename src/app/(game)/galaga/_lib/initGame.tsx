@@ -2,14 +2,18 @@ import { SpaceShipControllers } from "@/app/(game)/galaga/_lib/spaceShipControll
 import { LoadImage } from "@/app/(game)/galaga/_lib/loadImage";
 import { bulletControllers } from "@/app/(game)/galaga/_lib/bulletControllers";
 import { Bullet } from "@/app/(game)/galaga/_lib/bullet";
+import { EnemyPlane } from "@/app/(game)/galaga/_lib/enemyPlane";
+import { enemyPlaneControllers } from "@/app/(game)/galaga/_lib/enemyPlaneControllers";
 
 export const initGame = async (
   canvas: HTMLCanvasElement
 ): Promise<() => void> => {
   const ctx = canvas.getContext("2d");
+  // console.log(canvas.width);
   if (!ctx) throw new Error("2D not context");
 
   const bullets: Bullet[] = [];
+  const enemyPlanes: EnemyPlane[] = [];
 
   // 우주선 값
   const SPACEFIGHTER_SIZE = 50;
@@ -27,6 +31,8 @@ export const initGame = async (
     bullets,
     getFighterPosition
   );
+
+  const test = enemyPlaneControllers(enemyPlanes, canvas.width, canvas.height);
 
   window.addEventListener("keydown", handleSpaceShipPostion);
   window.addEventListener("keyup", handleSpaceShipStop);
@@ -50,14 +56,23 @@ export const initGame = async (
       SPACEFIGHTER_SIZE,
       SPACEFIGHTER_SIZE
     );
+    // 적기
+    enemyPlanes.forEach((enemyPlane, i) => {
+      enemyPlane.update();
+      enemyPlane.draw(ctx, images.enemyPlaneSkeleton);
+      if (enemyPlane.y > 900) {
+        enemyPlanes.splice(i, 1);
+        console.log("game over");
+      }
+    });
 
     // 총알
-    bullets.forEach((bullet, index) => {
+    bullets.forEach((bullet, i) => {
       bullet.update();
       bullet.draw(ctx, images.bulletImage);
 
       if (bullet.y < 0) {
-        bullets.splice(index, 1);
+        bullets.splice(i, 1);
       }
     });
   };
@@ -65,6 +80,7 @@ export const initGame = async (
   const loop = () => {
     update();
     render();
+    // test;
     animationFrameId = requestAnimationFrame(loop);
   };
 
