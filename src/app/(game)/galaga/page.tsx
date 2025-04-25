@@ -1,5 +1,11 @@
 "use client";
 
+import {
+  handleKeyboardListener,
+  handleKeyboardDelete,
+  handleSpaceUpdate,
+} from "@/app/(game)/galaga/_lib/controllers";
+import { LoadImage } from "@/app/(game)/galaga/_lib/loadImage";
 import { useEffect, useRef } from "react";
 
 export default function Galaga() {
@@ -12,27 +18,44 @@ export default function Galaga() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    const image = new Image();
-    image.src = "/bullet.png";
+    window.addEventListener("keydown", handleKeyboardListener);
+    window.addEventListener("keyup", handleKeyboardDelete);
+
+    const { bulletImage, spaceFighterImage, enemyPlaneWhite } = LoadImage();
+
+    // 내 우주선
+    const SPACEFIGHTER_HEIGHT_WIDTH = 50;
+    let spaceFighterX = canvas.width / 2;
+    let spaceFighterY = 950 - SPACEFIGHTER_HEIGHT_WIDTH;
 
     let animationFrameId: number;
-    let y = 0;
 
     const render = () => {
-      // 나중에 render 내용 loop함수로 이동해서 담기.
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.drawImage(image, canvas.width / 2 - 10, y, 20, 20);
-      y += 4;
-      if (y < -20) y = 950;
+      const { X, Y } = handleSpaceUpdate(spaceFighterX, spaceFighterY);
+      spaceFighterX = X;
+      spaceFighterY = Y;
 
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      ctx.drawImage(
+        spaceFighterImage,
+        spaceFighterX,
+        spaceFighterY,
+        SPACEFIGHTER_HEIGHT_WIDTH,
+        SPACEFIGHTER_HEIGHT_WIDTH
+      );
       animationFrameId = requestAnimationFrame(render); // 다음 프레임 요청
     };
 
-    image.onload = () => {
+    bulletImage.onload = () => {
       render();
     };
 
-    return () => cancelAnimationFrame(animationFrameId); // cleanup
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+      window.addEventListener("keydown", handleKeyboardListener);
+      window.addEventListener("keyup", handleKeyboardDelete);
+    };
   }, []);
 
   return (
