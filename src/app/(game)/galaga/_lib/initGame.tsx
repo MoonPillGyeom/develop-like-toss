@@ -10,7 +10,7 @@ export const initGame = async (
   if (!ctx) throw new Error("2D not context");
 
   const bullets: Bullet[] = [];
-  console.log(bullets);
+
   // 우주선 값
   const SPACEFIGHTER_SIZE = 50;
   let spaceFighterX = canvas.width / 2;
@@ -21,11 +21,12 @@ export const initGame = async (
   const { handleSpaceShipPostion, handleSpaceShipStop, handleSpaceShipUpdate } =
     SpaceShipControllers();
 
-  // 아 바꿨더니 안 움직임..... 나중에 수정해야함
-  const { handleBulletShot, handleBulletStop } = bulletControllers(bullets, {
-    spaceFighterX,
-    spaceFighterY,
-  });
+  const getFighterPosition = () => ({ x: spaceFighterX, y: spaceFighterY });
+
+  const { handleBulletShot, handleBulletStop } = bulletControllers(
+    bullets,
+    getFighterPosition
+  );
 
   window.addEventListener("keydown", handleSpaceShipPostion);
   window.addEventListener("keyup", handleSpaceShipStop);
