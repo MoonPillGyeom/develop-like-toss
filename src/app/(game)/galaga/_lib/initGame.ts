@@ -12,75 +12,93 @@ export const initGame = async (
   // console.log(canvas.width);
   if (!ctx) throw new Error("2D not context");
 
+  let isGameOver = false;
+
+  const images = await LoadImage();
+
   const bullets: Bullet[] = [];
   const enemyPlanes: EnemyPlane[] = [];
 
   // 우주선 값
   const SPACEFIGHTER_SIZE = 50;
-  let spaceFighterX = canvas.width / 2;
-  let spaceFighterY = canvas.height - SPACEFIGHTER_SIZE;
+  let SpaceShipX = canvas.width / 2;
+  let SpaceShipY = canvas.height - SPACEFIGHTER_SIZE;
 
   let animationFrameId: number;
 
   const { handleSpaceShipPostion, handleSpaceShipStop, handleSpaceShipUpdate } =
     SpaceShipControllers();
 
-  const getFighterPosition = () => ({ x: spaceFighterX, y: spaceFighterY });
+  const SpaceShipPosition = () => ({ x: SpaceShipX, y: SpaceShipY });
 
   const { handleBulletShot, handleBulletStop } = bulletControllers(
     bullets,
-    getFighterPosition
+    SpaceShipPosition
   );
 
-  const test = enemyPlaneControllers(enemyPlanes, canvas.width, canvas.height);
+  const clearEnemyInterval = enemyPlaneControllers(
+    enemyPlanes,
+    canvas.width,
+    canvas.height
+  );
 
   window.addEventListener("keydown", handleSpaceShipPostion);
   window.addEventListener("keyup", handleSpaceShipStop);
   window.addEventListener("keydown", handleBulletShot);
   window.addEventListener("keyup", handleBulletStop);
 
-  const images = await LoadImage();
-
   const update = () => {
-    const { X, Y } = handleSpaceShipUpdate(spaceFighterX, spaceFighterY);
-    spaceFighterX = X;
-    spaceFighterY = Y;
-  };
+    // if (isGameOver) return;
 
+    const { X, Y } = handleSpaceShipUpdate(SpaceShipX, SpaceShipY);
+    SpaceShipX = X;
+    SpaceShipY = Y;
+
+    // 적기 업데이트 및 제거
+    for (let i = enemyPlanes.length - 1; i >= 0; i--) {
+      enemyPlanes[i].update();
+      if (enemyPlanes[i].y > 900) {
+        isGameOver = true;
+        cancelAnimationFrame(animationFrameId); // 루프 중단
+        clearEnemyInterval(); // 적기 생성 멈추기
+
+        console.log("stop...?");
+        return; // 더 이상 진행 안 함
+      }
+    }
+    // 총알 업데이트 및 제거
+    for (let i = bullets.length - 1; i >= 0; i--) {
+      bullets[i].update();
+      if (bullets[i].y < 0) {
+        bullets.splice(i, 1);
+      }
+    }
+  };
+  // console.log("stop...됐을까?");
   const render = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(
       images.spaceFighterImage,
-      spaceFighterX,
-      spaceFighterY,
+      SpaceShipX,
+      SpaceShipY,
       SPACEFIGHTER_SIZE,
       SPACEFIGHTER_SIZE
     );
     // 적기
     enemyPlanes.forEach((enemyPlane, i) => {
-      enemyPlane.update();
       enemyPlane.draw(ctx, images.enemyPlaneSkeleton);
-      if (enemyPlane.y > 900) {
-        enemyPlanes.splice(i, 1);
-        console.log("game over");
-      }
     });
 
     // 총알
     bullets.forEach((bullet, i) => {
-      bullet.update();
       bullet.draw(ctx, images.bulletImage);
-
-      if (bullet.y < 0) {
-        bullets.splice(i, 1);
-      }
     });
   };
 
   const loop = () => {
+    if (isGameOver) return;
     update();
     render();
-    // test;
     animationFrameId = requestAnimationFrame(loop);
   };
 
