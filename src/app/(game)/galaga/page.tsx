@@ -1,9 +1,10 @@
 "use client";
 
 import { initGame } from "@/app/(game)/galaga/_lib/initGame";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function Galaga() {
+  const [isGameOver, setIsGameOver] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
