@@ -14,7 +14,7 @@ export default function Galaga() {
     // initGame return값 담을 함수 생성
     let cleanupFn: () => void;
 
-    initGame(canvas).then((cleanup) => {
+    initGame(canvas, setIsGameOver).then((cleanup) => {
       cleanupFn = cleanup;
     });
 
@@ -24,11 +24,19 @@ export default function Galaga() {
   }, []);
 
   return (
-    <canvas
-      ref={canvasRef}
-      width={900}
-      height={950}
-      className="bg-[url('/background-space.jpeg')] bg-cover"
-    ></canvas>
+    <>
+      <canvas
+        ref={canvasRef}
+        width={900}
+        height={950}
+        className="bg-[url('/background-space.jpeg')] bg-cover"
+      ></canvas>
+
+      {isGameOver && (
+        <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-70">
+          <h1 className="text-4xl font-bold text-white">GAME OVER</h1>
+        </div>
+      )}
+    </>
   );
 }

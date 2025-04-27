@@ -6,13 +6,14 @@ import { EnemyPlane } from "@/app/(game)/galaga/_lib/enemyPlane";
 import { enemyPlaneControllers } from "@/app/(game)/galaga/_lib/enemyPlaneControllers";
 
 export const initGame = async (
-  canvas: HTMLCanvasElement
+  canvas: HTMLCanvasElement,
+  setIsGameOver: React.Dispatch<React.SetStateAction<boolean>>
 ): Promise<() => void> => {
   const ctx = canvas.getContext("2d");
   // console.log(canvas.width);
   if (!ctx) throw new Error("2D not context");
 
-  let isGameOver = false;
+  // let isGameOver = false;
 
   const images = await LoadImage();
 
@@ -47,6 +48,7 @@ export const initGame = async (
   window.addEventListener("keydown", handleBulletShot);
   window.addEventListener("keyup", handleBulletStop);
 
+  let gameEnded = false; // 딱 cleanup 용으로만 사용
   const update = () => {
     // if (isGameOver) return;
 
@@ -58,12 +60,13 @@ export const initGame = async (
     for (let i = enemyPlanes.length - 1; i >= 0; i--) {
       enemyPlanes[i].update();
       if (enemyPlanes[i].y > 900) {
-        isGameOver = true;
+        gameEnded = true;
+        if (gameEnded) {
+          setIsGameOver(gameEnded);
+        }
         cancelAnimationFrame(animationFrameId); // 루프 중단
         clearEnemyInterval(); // 적기 생성 멈추기
-
-        console.log("stop...?");
-        return; // 더 이상 진행 안 함
+        return;
       }
     }
     // 총알 업데이트 및 제거
@@ -96,7 +99,7 @@ export const initGame = async (
   };
 
   const loop = () => {
-    if (isGameOver) return;
+    if (gameEnded) return;
     update();
     render();
     animationFrameId = requestAnimationFrame(loop);
