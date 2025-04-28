@@ -12,8 +12,12 @@ export class EnemyPlane {
     this.y += this.speed;
   }
 
-  draw(ctx: CanvasRenderingContext2D, image: HTMLImageElement) {
-    ctx.drawImage(image, this.x, this.y, 50, 50);
+  draw(
+    ctx: CanvasRenderingContext2D,
+    image: HTMLImageElement,
+    ENEMYPLANE_SIZE: number
+  ) {
+    ctx.drawImage(image, this.x, this.y, ENEMYPLANE_SIZE, ENEMYPLANE_SIZE);
   }
 
   init(x: number, y: number) {

@@ -10,7 +10,6 @@ export const bulletControllers = (
     if (e.key === " ") {
       const { x, y } = getFighterPosition();
       bullets.push(new Bullet(x + 20, y)); // 20은 우주선 가운데에서 쏘기 위해
-      console.table(bullets);
     }
   };
 

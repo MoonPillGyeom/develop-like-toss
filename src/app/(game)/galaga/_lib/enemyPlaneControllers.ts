@@ -3,11 +3,10 @@ import { EnemyPlane } from "@/app/(game)/galaga/_lib/enemyPlane";
 export const enemyPlaneControllers = (
   enemyPlanes: EnemyPlane[],
   x: number,
-  y: number
+  ENEMYPLANE_SIZE: number
 ) => {
   const interval = setInterval(() => {
-    console.log("1기 생성");
-    const randomX = Math.floor(Math.random() * x);
+    const randomX = Math.floor(Math.random() * (x - ENEMYPLANE_SIZE));
     enemyPlanes.push(new EnemyPlane(randomX, 0));
   }, 1000);
   return () => clearInterval(interval);
