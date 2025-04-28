@@ -42,14 +42,16 @@ export default function Home() {
             menus={data.map(({ title, id }) => ({ title, id }))}
             onClick={handleNavigate}
           />
-          {data.map((item, i) => (
-            <Card
-              data={item}
-              key={i}
-              onClick={handleCardClick}
-              handleNavigate={() => handleNavigate(item.title)}
-            />
-          ))}
+          <div className="grid grid-cols-3 gap-8">
+            {data.map((item, i) => (
+              <Card
+                data={item}
+                key={i}
+                onClick={handleCardClick}
+                handleNavigate={() => handleNavigate(item.title)}
+              />
+            ))}
+          </div>
         </div>
         {/* 나중에 game데이터로 변경 후 해당 게임 랭킹 산출 */}
         {isSidebarVisible && selectedGame && (
