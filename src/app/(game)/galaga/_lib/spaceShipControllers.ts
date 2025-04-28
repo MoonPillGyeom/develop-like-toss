@@ -15,7 +15,7 @@ export const SpaceShipControllers = () => {
     spaceFighterY: number
   ) => {
     let X = spaceFighterX;
-    let Y = spaceFighterY;
+    const Y = spaceFighterY;
     if ("ArrowRight" in keyDown && spaceFighterX !== 850) {
       X += 5;
     }

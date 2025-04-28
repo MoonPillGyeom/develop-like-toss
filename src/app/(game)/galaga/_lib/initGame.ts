@@ -105,12 +105,12 @@ export const initGame = async (
       SPACEFIGHTER_SIZE
     );
     // 적기
-    enemyPlanes.forEach((enemyPlane, i) => {
+    enemyPlanes.forEach((enemyPlane, _) => {
       enemyPlane.draw(ctx, images.enemyPlaneSkeleton, ENEMYPLANE_SIZE);
     });
 
     // 총알
-    bullets.forEach((bullet, i) => {
+    bullets.forEach((bullet, _) => {
       bullet.draw(ctx, images.bulletImage, BULLET_SIZE);
     });
   };
