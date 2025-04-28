@@ -1,4 +1,4 @@
-let keyDown: Record<string, boolean> = {};
+const keyDown: Record<string, boolean> = {};
 
 // 내 우주선을 조작하는 함수입니다.
 export const SpaceShipControllers = () => {

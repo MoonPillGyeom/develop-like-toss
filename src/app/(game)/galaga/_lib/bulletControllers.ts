@@ -1,6 +1,6 @@
 import { Bullet } from "@/app/(game)/galaga/_lib/bullet";
 
-let keyDown: Record<string, boolean> = {};
+const keyDown: Record<string, boolean> = {};
 
 export const bulletControllers = (
   bullets: Bullet[],

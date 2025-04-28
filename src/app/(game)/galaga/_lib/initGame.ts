@@ -17,6 +17,8 @@ export const initGame = async (
   const bullets: Bullet[] = [];
   const enemyPlanes: EnemyPlane[] = [];
 
+  let score = 0;
+
   // 우주선 값
   const SPACEFIGHTER_SIZE = 50;
   let SpaceShipX = canvas.width / 2;
@@ -80,6 +82,8 @@ export const initGame = async (
         if (isHit) {
           bullets.splice(j, 1);
           enemyPlanes.splice(i, 1);
+          score++;
+          console.log(score);
         }
         if (bullet.y < 0) {
           bullets.splice(j, 1);
