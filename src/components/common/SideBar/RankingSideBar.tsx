@@ -1,5 +1,5 @@
 import Image from "next/image";
-import test2 from "@/../public/test2.svg";
+import test2 from "@/../public/skeleton.png";
 
 function RankingSideBar({
   rank,

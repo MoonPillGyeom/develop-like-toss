@@ -1,5 +1,4 @@
 import Image from "next/image";
-import test from "@/../public/test.svg";
 import { gameData } from "@/app/types/gamedata";
 import { MouseEvent } from "react";
 
@@ -15,11 +14,11 @@ function Card({
   return (
     <>
       <div
-        className="w-80 rounded-md overflow-hidden bg-black-60 shadow-md"
+        className="w-80 rounded-xl overflow-hidden bg-black-60 shadow-md"
         onClick={handleNavigate}
       >
-        <div className="relative w-full h-72">
-          <Image src={test} alt="test" fill className="object-cover" />
+        <div className="relative w-full h-72 mb-2.5">
+          <Image src={data.image} alt="test" fill className="object-cover" />
         </div>
         <div className="px-5 pb-6">
           <p className="text-lg font-semibold">{data.title}</p>

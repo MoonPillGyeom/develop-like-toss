@@ -1,9 +1,9 @@
 "use client";
 
-import Inputs from "@/app/(game)/wordMatchGame/_components/Inputs";
+import Inputs from "@/app/(game)/wordMathGame/_components/Inputs";
 import Button from "@/components/common/Button/Button";
 import { ChangeEvent, useState } from "react";
-export default function WordMatchGame() {
+export default function WordMathGame() {
   const [word, setWord] = useState<string>("");
   const [counter, setCounter] = useState<number>(1);
   console.log(word);
