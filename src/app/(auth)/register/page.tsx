@@ -1,7 +1,7 @@
 "use client";
 
-import Input, { PasswordInput } from "@/components/common/Input/Input";
-import Button from "@/components/common/Button/Button";
+import Input, { PasswordInput } from "@/components/atoms/Input";
+import Button from "@/components/atoms/Button";
 import Link from "next/link";
 import { FormEvent, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
