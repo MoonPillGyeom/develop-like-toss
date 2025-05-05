@@ -1,6 +1,6 @@
 "use client";
 
-import Input, { PasswordInput } from "@/components/atoms/Input";
+import Input, { PasswordInput } from "@/components/atoms/test2Input";
 import Button from "@/components/atoms/Button";
 import Link from "next/link";
 import { FormEvent, useRef, useState } from "react";
