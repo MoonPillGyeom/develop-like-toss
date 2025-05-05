@@ -1,52 +1,41 @@
-import { MongoClient } from "mongodb";
-import NextAuth from "next-auth/next";
-import CredentialsProvider from "next-auth/providers/credentials";
-import GoogleProvider from "next-auth/providers/google";
+import { connectDB } from "@/app/lib/mongodb";
+import User from "@/app/models/User";
+import NextAuth from "next-auth";
+import type { NextAuthOptions } from "next-auth";
+import credentials from "next-auth/providers/credentials";
+import bcrypt from "bcryptjs";
 
-const handler = NextAuth({
+const authOptions: NextAuthOptions = {
   providers: [
-    GoogleProvider({
-      clientId: process.env.GOOGLE_ID!,
-      clientSecret: process.env.GOOGLE_SECRET!,
-    }),
-    CredentialsProvider({
+    credentials({
       name: "Credentials",
+      id: "credentials",
       credentials: {
-        username: { label: "Username", type: "text", placeholder: "jsmith" },
+        email: { label: "Email", type: "text" },
         password: { label: "Password", type: "password" },
       },
+      async authorize(credentials) {
+        await connectDB();
+        const user = await User.findOne({
+          email: credentials?.email,
+        }).select("+password");
 
-      // 로그인 실행
-      async authorize(credentials, req) {
-        const params = {
-          userId: credentials?.username,
-          userPw: credentials?.password,
-        };
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_DEV_URL}/api/user/login`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(params),
-          }
+        if (!user) throw new Error("Wrong Email");
+
+        const passwordMatch = await bcrypt.compare(
+          credentials!.password,
+          user.password
         );
 
-        const res = await response.json();
-
-        if (res.message == "OK") {
-          return res;
-        } else {
-          throw new Error(res.message);
-        }
+        if (!passwordMatch) throw new Error("Wrong Password");
+        return user;
       },
     }),
   ],
-  // 커스텀 로그인 페이지 사용
-  pages: {
-    signIn: "/login",
+  session: {
+    strategy: "jwt",
   },
-});
+};
 
+const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };
