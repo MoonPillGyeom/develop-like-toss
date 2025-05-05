@@ -1,7 +1,10 @@
 "use client";
 
+import Button from "@/components/common/Button/Button";
 import Input from "@/components/common/Input/Input";
+import { signOut } from "next-auth/react";
 import Link from "next/link";
+import Router from "next/router";
 
 export default function Header() {
   return (
@@ -15,6 +18,16 @@ export default function Header() {
             onChange={() => console.log("test")}
           />
           <nav className="flex gap-8 items-center">
+            <Button
+              // className="border border-solid border-black rounded"
+              onClick={() => {
+                signOut({ redirect: false }).then(() => {
+                  Router.push("/");
+                });
+              }}
+            >
+              로그아웃 버튼(임시)
+            </Button>
             <Link href="/login">로그인</Link>
             <Link href="/register">회원가입</Link>
           </nav>

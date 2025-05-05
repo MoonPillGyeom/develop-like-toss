@@ -3,6 +3,8 @@
 import { connectDB } from "@/app/lib/mongodb";
 import User from "@/app/models/User";
 import bcrypt from "bcryptjs";
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export const register = async (values: any) => {
   const { email, password, name } = values;
 
@@ -25,3 +27,4 @@ export const register = async (values: any) => {
     console.log(e);
   }
 };
+/* eslint-enable @typescript-eslint/no-explicit-any */

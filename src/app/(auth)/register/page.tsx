@@ -1,46 +1,78 @@
 "use client";
-import Button from "@/components/common/Button/Button";
+
 import Input, { PasswordInput } from "@/components/common/Input/Input";
+import Button from "@/components/common/Button/Button";
+import Link from "next/link";
+import { FormEvent, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
+import { register } from "@/app/actions/register";
 
 function Register() {
-  const handleChange = () => {
-    console.log("event handler");
+  const [error, setError] = useState<string>();
+  const router = useRouter();
+  const ref = useRef<HTMLFormElement>(null);
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+
+    const result = await register({
+      email: formData.get("email"),
+      password: formData.get("password"),
+      name: formData.get("name"),
+    });
+
+    if (result?.error) {
+      setError(result.error);
+      return;
+    }
+
+    ref.current?.reset();
+    router.push("/login");
   };
+
   return (
-    <form className="flex flex-col gap-10 w-full max-w-3xl">
-      <Input
-        id="email"
-        label="이메일"
-        placeholder="이메일을 입력해 주세요"
-        className="focus:border-blue-20"
-        onChange={handleChange}
-      />
-      <Input
-        id="nickName"
-        label="닉네임"
-        placeholder="닉네임을 입력해 주세요"
-        className="focus:border-blue-20"
-        helperText="최대 10자 가능"
-        onChange={handleChange}
-      />
-      <PasswordInput
-        id="password"
-        label="비밀번호"
-        placeholder="비밀번호를 입력해 주세요"
-        className="focus:border-blue-20"
-        helperText="최소 8자 이상"
-        onChange={handleChange}
-      />
-      <PasswordInput
-        id="password"
-        type="password"
-        label="비밀번호 확인"
-        placeholder="비밀번호를 한번 더 입력해 주세요"
-        className="focus:border-blue-20"
-        onChange={handleChange}
-      />
-      <Button className="mt-5">로그인</Button>
-    </form>
+    <section className="w-full h-screen flex items-center justify-center">
+      <form
+        ref={ref}
+        onSubmit={handleSubmit}
+        className="p-6 w-full max-w-[400px] flex flex-col gap-6 border border-solid border-black bg-white rounded"
+      >
+        {error && <div className="text-red-500 text-sm">{error}</div>}
+        <h1 className="text-2xl font-bold w-full">Sign Up</h1>
+
+        <Input
+          id="name"
+          name="name"
+          label="Full Name"
+          placeholder="Full Name"
+          className="focus:border-blue-20"
+        />
+        <Input
+          id="email"
+          name="email"
+          label="Email"
+          placeholder="Email"
+          className="focus:border-blue-20"
+        />
+        <PasswordInput
+          id="password"
+          name="password"
+          label="Password"
+          placeholder="Password"
+          className="focus:border-blue-20"
+        />
+
+        <Button type="submit">Sign up</Button>
+
+        <Link
+          href="/login"
+          className="text-sm text-[#888] transition duration-150 ease hover:text-black text-center"
+        >
+          Already have an account?
+        </Link>
+      </form>
+    </section>
   );
 }
 
