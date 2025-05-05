@@ -54,7 +54,7 @@ function Login() {
           href="/register"
           className="text-sm text-[#888] transition duration-150 ease hover:text-black text-center"
         >
-          Don't have an account?
+          Don&apos;t have an account?
         </Link>
       </form>
     </section>
