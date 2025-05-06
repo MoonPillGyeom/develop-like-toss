@@ -3,13 +3,12 @@ import Button from "@/components/atoms/Button";
 import InputMessage from "@/components/atoms/InputMessage";
 import LabelInputWithMessage from "@/components/molecules/LabelInput";
 import { PasswordInput } from "@/components/molecules/PasswordInput";
-import { useSession } from "next-auth/react";
+// import { useSession } from "next-auth/react";
 import Link from "next/link";
 
 function RegisterForm() {
   const { isError, handleSubmit, formRef } = useRegister();
-  const { data: test } = useSession();
-  console.log(test);
+  // const { data: test } = useSession();
   return (
     <form
       ref={formRef}
@@ -60,7 +59,7 @@ function RegisterForm() {
 
       <Link
         href="/login"
-        className="text-sm text-[#888] transition duration-150 ease hover:text-black text-center"
+        className="text-sm text-[#888] transition duration-150 ease hover:text-blue-20 text-center"
       >
         이미 계정이 있으신가요?
       </Link>

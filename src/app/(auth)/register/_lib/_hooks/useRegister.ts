@@ -16,7 +16,6 @@ export const useRegister = () => {
       password: formData.get("password"),
       name: formData.get("name"),
     });
-    console.log("result : ", result);
     if (result?.error) {
       setIsError(result.error);
       return;

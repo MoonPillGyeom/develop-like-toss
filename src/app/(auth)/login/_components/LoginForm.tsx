@@ -6,7 +6,7 @@ import { PasswordInput } from "@/components/molecules/PasswordInput";
 import Link from "next/link";
 
 function LoginForm() {
-  const { error, handleSubmit } = useLogin();
+  const { isError, handleSubmit } = useLogin();
 
   return (
     <form
@@ -20,7 +20,7 @@ function LoginForm() {
           label="이메일"
           inputProps={{ className: "focus:border-blue-20" }}
         />
-        {error && <InputMessage error="잘못된 이메일입니다." />}
+        {isError && <InputMessage error="잘못된 이메일입니다." />}
       </div>
       <div className="relative">
         <PasswordInput
@@ -29,12 +29,12 @@ function LoginForm() {
           label="비밀번호"
           inputProps={{ className: "focus:border-blue-20" }}
         />
-        {error && <InputMessage error="비밀번호를 확인해주세요." />}
+        {isError && <InputMessage error="비밀번호를 확인해주세요." />}
       </div>
       <Button type="submit">Logi In</Button>
       <Link
         href="/register"
-        className="text-sm text-[#888] transition duration-150 ease hover:text-black text-center"
+        className="text-sm text-[#888] transition duration-150 ease hover:text-blue-20 text-center"
       >
         계정이 없으신가요?
       </Link>

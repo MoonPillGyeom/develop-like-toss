@@ -3,9 +3,8 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 export function useLogin() {
-  const [error, setError] = useState<string>("");
+  const [isError, setIsError] = useState<boolean | undefined>(false);
   const router = useRouter();
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -15,14 +14,13 @@ export function useLogin() {
       password: formData.get("password"),
       redirect: false,
     });
-
-    if (res?.error) {
-      setError(res.error as string);
+    if (!res?.ok) {
+      setIsError(res?.ok);
     }
     if (res?.ok) {
       router.push("/");
     }
   };
 
-  return { error, handleSubmit };
+  return { isError, handleSubmit };
 }
