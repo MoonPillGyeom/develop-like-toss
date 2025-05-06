@@ -3,10 +3,13 @@ import Button from "@/components/atoms/Button";
 import InputMessage from "@/components/atoms/InputMessage";
 import LabelInputWithMessage from "@/components/molecules/LabelInput";
 import { PasswordInput } from "@/components/molecules/PasswordInput";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 
 function RegisterForm() {
   const { isError, handleSubmit, formRef } = useRegister();
+  const { data: test } = useSession();
+  console.log(test);
   return (
     <form
       ref={formRef}
