@@ -1,18 +1,17 @@
+import React from "react";
+
 interface InputMessageProps {
-  message: string;
-  isError: boolean;
+  error?: string;
+  helper?: string;
 }
 
-const InputMessage = ({ message, isError }: InputMessageProps) => {
-  const messageStyle = isError ? "text-red-500" : "text-gray-500";
+const InputMessage = ({ error, helper }: InputMessageProps) => {
+  if (!error && !helper) return null;
+
+  const message = error ?? helper;
+  const messageStyle = error ? "text-red-500" : "text-gray-500";
+
   return <p className={`absolute text-sm ${messageStyle}`}>{message}</p>;
 };
 
 export default InputMessage;
-// let message: React.ReactNode = null;
-
-// if (error) {
-//   message = <p className="text-red-40">{error}</p>;
-// } else if (helperText) {
-//   message = <p className="text-gray-40">{helperText}</p>;
-// }

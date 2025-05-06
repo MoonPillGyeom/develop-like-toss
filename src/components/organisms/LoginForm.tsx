@@ -20,7 +20,7 @@ function LoginForm() {
           label="이메일"
           inputProps={{ className: "focus:border-blue-20" }}
         />
-        {error && <InputMessage message="잘못된 이메일입니다." isError />}
+        {error && <InputMessage error="잘못된 이메일입니다." />}
       </div>
       <div className="relative">
         <PasswordInput
@@ -29,7 +29,7 @@ function LoginForm() {
           label="비밀번호"
           inputProps={{ className: "focus:border-blue-20" }}
         />
-        {error && <InputMessage message="비밀번호를 확인해주세요." isError />}
+        {error && <InputMessage error="비밀번호를 확인해주세요." />}
       </div>
       <Button type="submit">Logi In</Button>
       <Link
