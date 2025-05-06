@@ -26,7 +26,7 @@ const LabelInputWithMessage = ({
     <div className="flex flex-col gap-2">
       {label && <Label htmlFor={id}>{label}</Label>}
       <Input id={id} placeholder={placeholder} {...inputProps} />
-      {errorMessage && <InputMessage message={errorMessage} isError />}
+      {errorMessage && <InputMessage error={errorMessage} />}
     </div>
   );
 };
