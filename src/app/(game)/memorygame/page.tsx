@@ -6,7 +6,7 @@ import { CardType } from "@/app/types/cardType";
 import { initGame } from "@/app/(game)/memorygame/_lib/initGame";
 import { useFlippedCards } from "@/app/(game)/memorygame/_lib/useFlip";
 import { useMatchedCards } from "@/app/(game)/memorygame/_lib/useMatchedCards";
-import StartCountdownWrapper from "@/components/common/GameStartWrapper/GameStartWrapper";
+import StartCountdownWrapper from "@/components/molecules/GameStartWrapper";
 
 function MemoryGame() {
   const [counter, setCounter] = useState<number>(Number);

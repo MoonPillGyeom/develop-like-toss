@@ -3,9 +3,9 @@
 import useEscapeKey from "@/app/hooks/useEscapeKey";
 import useGameData from "@/app/hooks/useGameData";
 import { gameData } from "@/app/types/gamedata";
-import Card from "@/components/common/Card/Card";
-import CategorySideBar from "@/components/common/SideBar/CategorySideBar";
-import RankingSideBar from "@/components/common/SideBar/RankingSideBar";
+import Card from "@/components/molecules/Card";
+import CategorySideBar from "@/components/SideBar/CategorySideBar";
+import RankingSideBar from "@/components/SideBar/RankingSideBar";
 import { useRouter } from "next/navigation";
 import { MouseEvent, useState } from "react";
 

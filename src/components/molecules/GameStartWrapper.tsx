@@ -1,6 +1,6 @@
 "use client";
 
-import Button from "@/components/common/Button/Button";
+import Button from "@/components/atoms/Button";
 import { useState, useEffect, ReactNode } from "react";
 
 interface StartWrapperProps {
