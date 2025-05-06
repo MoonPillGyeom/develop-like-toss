@@ -1,6 +1,6 @@
 "use client";
 
-import LoginForm from "@/components/organisms/LoginForm";
+import LoginForm from "@/app/(auth)/login/_components/LoginForm";
 
 function Login() {
   return <LoginForm />;

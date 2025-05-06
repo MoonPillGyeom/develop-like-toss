@@ -36,7 +36,7 @@ function LoginForm() {
         href="/register"
         className="text-sm text-[#888] transition duration-150 ease hover:text-black text-center"
       >
-        Don&apos;t have an account?
+        계정이 없으신가요?
       </Link>
     </form>
   );
