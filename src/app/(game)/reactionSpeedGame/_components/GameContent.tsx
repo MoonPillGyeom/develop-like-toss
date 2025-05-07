@@ -6,7 +6,7 @@ import { useReactionGame } from "@/app/(game)/reactionSpeedGame/_lib/useReaction
 export default function ReactionGameContent() {
   const { isBlueScreen, isGameOver, averageTime, handleClick } =
     useReactionGame();
-
+  console.log(isGameOver);
   return (
     <div className="flex flex-col gap-2.5 w-full">
       <div

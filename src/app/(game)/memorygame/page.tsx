@@ -6,7 +6,7 @@ import { CardType } from "@/app/types/cardType";
 import { initGame } from "@/app/(game)/memorygame/_lib/initGame";
 import { useFlippedCards } from "@/app/(game)/memorygame/_lib/useFlip";
 import { useMatchedCards } from "@/app/(game)/memorygame/_lib/useMatchedCards";
-import StartCountdownWrapper from "@/components/molecules/GameStartWrapper";
+import StartCountdownWrapper from "@/components/organisms/GameStartWrapper";
 
 function MemoryGame() {
   const [counter, setCounter] = useState<number>(Number);
@@ -25,7 +25,7 @@ function MemoryGame() {
   }, []);
 
   return (
-    <StartCountdownWrapper gameName="기억력 테스트">
+    <StartCountdownWrapper gameName="기억력 테스트" countdownStart={3}>
       <div className="flex flex-col gap-6 items-center">
         <h1 className="text-blue-40 font-bold text-2xl">SCORE : {counter}</h1>
         <div className="grid grid-cols-5 gap-10">
