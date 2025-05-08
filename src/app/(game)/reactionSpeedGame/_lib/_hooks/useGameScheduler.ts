@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { RandomDelay } from "./RandomDelay";
+import { RandomDelay } from "../RandomDelay";
 
 interface UseGameSchedulerProps {
   startMeasure: () => void;
