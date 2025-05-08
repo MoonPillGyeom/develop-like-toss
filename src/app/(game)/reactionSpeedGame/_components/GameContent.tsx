@@ -1,7 +1,7 @@
 "use client";
 
+import { useReactionGame } from "@/app/(game)/reactionSpeedGame/_lib/_hooks/useReactionGame";
 import clsx from "clsx";
-import { useReactionGame } from "@/app/(game)/reactionSpeedGame/_lib/useReactionGame";
 
 export default function ReactionGameContent() {
   const { isBlueScreen, isGameOver, averageTime, handleClick } =
