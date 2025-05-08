@@ -1,9 +1,10 @@
 import { SpaceShipControllers } from "@/app/(game)/galaga/_lib/spaceShipControllers";
-import { LoadImage } from "@/app/(game)/galaga/_lib/loadImage";
-import { bulletControllers } from "@/app/(game)/galaga/_lib/bulletControllers";
-import { Bullet } from "@/app/(game)/galaga/_lib/bullet";
+import { loadGameImages } from "@/app/(game)/galaga/_lib/loadImage";
+// import { bulletControllers } from "@/app/(game)/galaga/_lib/bulletControllers";
 import { EnemyPlane } from "@/app/(game)/galaga/_lib/enemyPlane";
 import { enemyPlaneControllers } from "@/app/(game)/galaga/_lib/enemyPlaneControllers";
+import { drawGameObjects } from "@/app/(game)/galaga/_lib/drawGameObjects";
+import { bulletControllers } from "@/app/(game)/galaga/_lib/updateBullets";
 
 export const initGame = async (
   canvas: HTMLCanvasElement,
@@ -12,9 +13,9 @@ export const initGame = async (
   const ctx = canvas.getContext("2d");
   if (!ctx) throw new Error("2D not context");
 
-  const images = await LoadImage();
+  const images = await loadGameImages();
 
-  const bullets: Bullet[] = [];
+  // const bullets: Bullet[] = [];
   const enemyPlanes: EnemyPlane[] = [];
 
   let score = 0;
@@ -36,10 +37,14 @@ export const initGame = async (
   const { handleSpaceShipPostion, handleSpaceShipStop, handleSpaceShipUpdate } =
     SpaceShipControllers();
 
-  const { handleBulletShot, handleBulletStop } = bulletControllers(
-    bullets,
-    () => ({ x: SpaceShipX, y: SpaceShipY })
-  );
+  const { handleBulletShot, handleBulletStop, getBullets, updateBullet } =
+    bulletControllers(
+      () => ({
+        x: SpaceShipX,
+        y: SpaceShipY,
+      }),
+      SPACEFIGHTER_SIZE
+    );
 
   const clearEnemyInterval = enemyPlaneControllers(
     enemyPlanes,
@@ -54,6 +59,7 @@ export const initGame = async (
 
   /** 게임 업데이트 함수 */
   const update = () => {
+    const bullets = getBullets(); // 총알 배열을 가져옴
     // 우주선 좌,우 이동
     const { X, Y } = handleSpaceShipUpdate(SpaceShipX, SpaceShipY);
     SpaceShipX = X;
@@ -67,34 +73,16 @@ export const initGame = async (
         endGame();
         return;
       }
-
       // 총알 업데이트
-      for (let j = bullets.length - 1; j >= 0; j--) {
-        const bullet = bullets[j];
-        bullet.update();
-
-        const isHit =
-          bullet.x < enemy.x + SPACEFIGHTER_SIZE &&
-          bullet.x + 10 > enemy.x &&
-          bullet.y < enemy.y + SPACEFIGHTER_SIZE &&
-          bullet.y + 20 > enemy.y;
-
-        if (isHit) {
-          bullets.splice(j, 1);
-          enemyPlanes.splice(i, 1);
-          score++;
-          console.log(score);
-        }
-        if (bullet.y < 0) {
-          bullets.splice(j, 1);
-        }
-      }
+      updateBullet(enemyPlanes);
     }
   };
 
   // 게임 렌더링
   const render = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    const bullets = getBullets(); // 총알 배열을 가져옴
 
     // 우주선
     ctx.drawImage(
@@ -104,15 +92,17 @@ export const initGame = async (
       SPACEFIGHTER_SIZE,
       SPACEFIGHTER_SIZE
     );
+
     // 적기
-    enemyPlanes.forEach((enemyPlane, _) => {
-      enemyPlane.draw(ctx, images.enemyPlaneSkeleton, ENEMYPLANE_SIZE);
-    });
+    drawGameObjects(
+      enemyPlanes,
+      ctx,
+      images.enemyPlaneSkeleton,
+      ENEMYPLANE_SIZE
+    );
 
     // 총알
-    bullets.forEach((bullet, _) => {
-      bullet.draw(ctx, images.bulletImage, BULLET_SIZE);
-    });
+    drawGameObjects(bullets, ctx, images.bulletImage, BULLET_SIZE);
   };
 
   /** 게임 종료 */

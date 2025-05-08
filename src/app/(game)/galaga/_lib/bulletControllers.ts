@@ -3,9 +3,10 @@ import { Bullet } from "@/app/(game)/galaga/_lib/bullet";
 const keyDown: Record<string, boolean> = {};
 
 export const bulletControllers = (
-  bullets: Bullet[],
+  // bullets: Bullet[],
   getFighterPosition: () => { x: number; y: number }
 ) => {
+  const bullets: Bullet[] = [];
   const handleBulletShot = (e: KeyboardEvent) => {
     if (e.key === " ") {
       const { x, y } = getFighterPosition();
@@ -18,5 +19,7 @@ export const bulletControllers = (
       delete keyDown[e.key];
     }
   };
-  return { handleBulletShot, handleBulletStop };
+
+  const getBullets = () => bullets;
+  return { handleBulletShot, handleBulletStop, getBullets };
 };
