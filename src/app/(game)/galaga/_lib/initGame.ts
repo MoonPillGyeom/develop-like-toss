@@ -1,7 +1,5 @@
 import { SpaceShipControllers } from "@/app/(game)/galaga/_lib/spaceShipControllers";
 import { loadGameImages } from "@/app/(game)/galaga/_lib/loadImage";
-// import { bulletControllers } from "@/app/(game)/galaga/_lib/bulletControllers";
-import { EnemyPlane } from "@/app/(game)/galaga/_lib/enemyPlane";
 import { enemyPlaneControllers } from "@/app/(game)/galaga/_lib/enemyPlaneControllers";
 import { drawGameObjects } from "@/app/(game)/galaga/_lib/drawGameObjects";
 import { bulletControllers } from "@/app/(game)/galaga/_lib/updateBullets";
@@ -14,9 +12,6 @@ export const initGame = async (
   if (!ctx) throw new Error("2D not context");
 
   const images = await loadGameImages();
-
-  // const bullets: Bullet[] = [];
-  const enemyPlanes: EnemyPlane[] = [];
 
   let score = 0;
 
@@ -46,11 +41,8 @@ export const initGame = async (
       SPACEFIGHTER_SIZE
     );
 
-  const clearEnemyInterval = enemyPlaneControllers(
-    enemyPlanes,
-    canvas.width,
-    ENEMYPLANE_SIZE
-  );
+  const { getEnemies, updateEnemies, clearEnemyInterval } =
+    enemyPlaneControllers(canvas.width, ENEMYPLANE_SIZE);
 
   window.addEventListener("keydown", handleSpaceShipPostion);
   window.addEventListener("keyup", handleSpaceShipStop);
@@ -60,22 +52,19 @@ export const initGame = async (
   /** 게임 업데이트 함수 */
   const update = () => {
     const bullets = getBullets(); // 총알 배열을 가져옴
+
     // 우주선 좌,우 이동
     const { X, Y } = handleSpaceShipUpdate(SpaceShipX, SpaceShipY);
     SpaceShipX = X;
     SpaceShipY = Y;
 
     // 적기 업데이트
-    for (let i = enemyPlanes.length - 1; i >= 0; i--) {
-      const enemy = enemyPlanes[i];
-      enemy.update();
-      if (enemy.y > 900) {
-        endGame();
-        return;
-      }
-      // 총알 업데이트
-      updateBullet(enemyPlanes);
-    }
+    updateEnemies(() => {
+      endGame(); // 적기가 화면 밖으로 벗어나면 게임 종료
+    });
+
+    // 총알 업데이트
+    updateBullet(getEnemies());
   };
 
   // 게임 렌더링
@@ -95,7 +84,7 @@ export const initGame = async (
 
     // 적기
     drawGameObjects(
-      enemyPlanes,
+      getEnemies(),
       ctx,
       images.enemyPlaneSkeleton,
       ENEMYPLANE_SIZE
