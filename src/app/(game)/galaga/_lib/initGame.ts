@@ -96,6 +96,7 @@ export const initGame = async (
 
   /** 게임 종료 */
   const endGame = () => {
+    if (gameEnded) return;
     gameEnded = true;
     setIsGameOver(true);
     cancelAnimationFrame(animationFrameId);
