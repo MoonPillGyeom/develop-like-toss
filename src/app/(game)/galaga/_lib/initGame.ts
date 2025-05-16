@@ -49,7 +49,7 @@ export const initGame = async (
   window.addEventListener("keydown", handleBulletShot);
   window.addEventListener("keyup", handleBulletStop);
 
-  /** 게임 업데이트 함수 */
+  /** 게임 업데이트 */
   const update = () => {
     const bullets = getBullets(); // 총알 배열을 가져옴
 
@@ -67,7 +67,7 @@ export const initGame = async (
     updateBullet(getEnemies());
   };
 
-  // 게임 렌더링
+  /** 게임 렌더링 */
   const render = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
