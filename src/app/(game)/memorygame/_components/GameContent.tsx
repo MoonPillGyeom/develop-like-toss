@@ -7,6 +7,7 @@ function MemoryGameContent() {
     shuffledCards,
     flippedCardIds,
     matchedCardIds,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     isMatching,
     lastResult,
     flipCard,

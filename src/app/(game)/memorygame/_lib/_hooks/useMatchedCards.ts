@@ -46,6 +46,6 @@ export const useMatchCardsChecker = (
       resetFlipped();
     }, 500);
     return () => clearTimeout(timeout);
-  }, [flippedCardIds, cards]);
+  }, [flippedCardIds, cards, resetFlipped]);
   return { matchedCardIds, isMatching, lastResult };
 };

@@ -21,10 +21,10 @@ export const useMemoryGame = () => {
   }, []);
 
   // TODO: 추후 다시하기 버튼 용이하게 미리 구현
-  const resetGame = () => {
-    setFlipCount(0);
-    setShuffledCards(initGame());
-  };
+  // const resetGame = () => {
+  //   setFlipCount(0);
+  //   setShuffledCards(initGame());
+  // };
 
   return {
     flipCount,

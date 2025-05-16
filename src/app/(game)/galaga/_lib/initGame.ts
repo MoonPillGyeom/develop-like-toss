@@ -13,6 +13,7 @@ export const initGame = async (
 
   const images = await loadGameImages();
 
+  // eslint-disable-next-line prefer-const, @typescript-eslint/no-unused-vars
   let score = 0;
 
   // 우주선 값
@@ -51,6 +52,7 @@ export const initGame = async (
 
   /** 게임 업데이트 */
   const update = () => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const bullets = getBullets(); // 총알 배열을 가져옴
 
     // 우주선 좌,우 이동
