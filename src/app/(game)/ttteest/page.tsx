@@ -18,6 +18,8 @@ export default function Page() {
           return;
         }
         const data = await response.json();
+        // console.log("받은 데이터:", data.data[0]);
+        // console.log("받은 데이터:", data.data);
         console.log("받은 데이터:", data);
       } catch (error) {
         console.error("fetch error:", error);
