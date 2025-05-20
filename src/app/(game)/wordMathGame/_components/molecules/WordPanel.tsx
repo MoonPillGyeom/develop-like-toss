@@ -32,7 +32,7 @@ export default function WordPanel({
       ))}
 
       {/* 현재 입력 중인 줄 */}
-      {counter <= 6 && <CharBox data={data} charArray={charArray} />}
+      {counter < 6 && <CharBox data={data} charArray={charArray} />}
 
       {counter < 6 && <Button onClick={onClick}>정답</Button>}
     </>

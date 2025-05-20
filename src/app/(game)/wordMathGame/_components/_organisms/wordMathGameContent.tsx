@@ -16,7 +16,7 @@ export default function WordMathGameConent() {
     charArray,
     counter,
     history,
-    handleChange,
+    handleChangeValue,
     handleSubmitAnswer,
   } = useWordMathGame(data);
 
@@ -45,7 +45,7 @@ export default function WordMathGameConent() {
           id="word"
           ref={inputRef}
           value={inputValue}
-          onChange={handleChange}
+          onChange={handleChangeValue}
           className="absolute opacity-0 w-0 h-0 pointer-events-none"
           autoComplete="off"
         />
