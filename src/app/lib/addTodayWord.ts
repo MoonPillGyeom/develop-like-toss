@@ -7,7 +7,7 @@ export const addTodayWord = async () => {
   // 오늘 날짜(연-월-일) 문자열 생성
   const todayStr = now.toISOString().slice(0, 10);
 
-  // 2025-05-18T00:00:00.000Z
+  // YYYY-MM-DDT00:00:00.000Z
   const startOfDay = new Date(todayStr);
   // 다음날 00시
   const endOfDay = new Date(startOfDay.getTime() + 24 * 60 * 60 * 1000);
@@ -18,9 +18,7 @@ export const addTodayWord = async () => {
       $lt: endOfDay,
     },
   });
-  console.log(existing);
   if (existing) {
-    console.log("오늘 단어가 이미 있습니다.");
     return existing;
   }
 
@@ -29,14 +27,13 @@ export const addTodayWord = async () => {
   if (!randomWord) {
     throw new Error("단어가 없습니다.");
   }
-  // console.log("test : ", randomWord);
+
   // DailyWord에 저장 (word 필드에 넣기)
   const newDailyWord = new DailyWord({
-    data: randomWord.data[0], // Word 스키마에 맞게 첫 번째 단어 하나 넣기
+    data: randomWord.data[0], // Word 스키마에 맞게
   });
 
   await newDailyWord.save();
 
-  console.log("오늘 단어 저장 완료");
   return newDailyWord;
 };
