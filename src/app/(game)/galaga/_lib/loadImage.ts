@@ -1,17 +1,19 @@
 "use client";
 
-export const LoadImage = async () => {
-  const load = (src: string): Promise<HTMLImageElement> =>
-    new Promise((resolve, reject) => {
-      const img = new Image();
-      img.src = src;
-      img.onload = () => resolve(img);
-      img.onerror = reject;
-    });
+const loadImage = (src: string): Promise<HTMLImageElement> =>
+  new Promise((resolve, reject) => {
+    const img = new Image();
+    img.src = src;
+    img.onload = () => resolve(img);
+    img.onerror = reject;
+  });
 
-  const spaceFighterImage = await load("/space-fighter-30.png");
-  const bulletImage = await load("/bullet.png");
-  const enemyPlaneSkeleton = await load("/skeleton.png");
-
+export const loadGameImages = async () => {
+  const [bulletImage, spaceFighterImage, enemyPlaneSkeleton] =
+    await Promise.all([
+      loadImage("/bullet.png"),
+      loadImage("/space-fighter-30.png"),
+      loadImage("/skeleton.png"),
+    ]);
   return { bulletImage, spaceFighterImage, enemyPlaneSkeleton };
 };

@@ -1,4 +1,5 @@
-import Input from "@/components/common/Input/Input";
+// import Input from "@/components/atoms/test2Input";
+import Input from "@/components/atoms/Input";
 import { ChangeEvent } from "react";
 
 interface InputProps {
