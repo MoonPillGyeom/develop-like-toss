@@ -4,9 +4,12 @@ import { WordItem } from "@/app/types/word";
 export default function useTodayWord() {
   const [data, setData] = useState<WordItem[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [isPending, setIsPending] = useState<boolean>(false);
 
   useEffect(() => {
     async function fetchWord() {
+      setIsPending(true);
+      setError(null);
       try {
         const response = await fetch("/api/word");
         if (!response.ok) {
@@ -20,11 +23,13 @@ export default function useTodayWord() {
       } catch (err) {
         setError("네트워크 에러");
         console.error("fetch error:", err);
+      } finally {
+        setIsPending(false);
       }
     }
 
     fetchWord();
   }, []);
 
-  return { data, error };
+  return { data, isPending, error };
 }
